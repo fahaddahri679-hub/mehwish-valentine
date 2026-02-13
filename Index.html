@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Mehwish ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #2b0000, #000000 60%, #3a1f0f);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow: hidden;
+      color: #f2e9e4;
+    }
+    .card {
+      background: linear-gradient(145deg, #120000, #2a0a0a);
+      padding: 32px 26px;
+      border-radius: 22px;
+      text-align: center;
+      max-width: 340px;
+      width: 92%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    h1 {
+      color: #ff4d6d;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    .name {
+      color: #c08552;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      opacity: 0.95;
+    }
+    button {
+      padding: 11px 22px;
+      margin: 8px;
+      border: none;
+      border-radius: 999px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+    button:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+    }
+    .yes {
+      background: linear-gradient(135deg, #ff4d6d, #c1121f);
+      color: white;
+    }
+    .no {
+      background: #3a1f0f;
+      color: #f2e9e4;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .heart {
+      position: absolute;
+      color: rgba(255,77,109,0.5);
+      animation: floatUp 6s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(100vh) scale(0.6); opacity: 0; }
+      10% { opacity: 1; }
+      to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+    .music {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Music (replace music.mp3 with your own file if you want) -->
+  <audio id="bgm" loop>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="card" id="card">
+    <h1>Will you be my Valentine? 💖</h1>
+    <div class="name">Mehwish (fuganiya)</div>
+    <p id="question">I promise cute dates, bad jokes, and lots of love 😘</p>
+    <div id="buttons">
+      <button class="yes" onclick="sayYes()">Yes 💕</button>
+      <button class="no" onclick="sayNo()">No 😜</button>
+    </div>
+    <div class="music">Tap anywhere to start music 🎵</div>
+  </div>
+
+  <script>
+    let step = 0;
+    const questions = [
+      "Are you sure? 😢",
+      "That will be bad for you… are you sure? 🥺",
+      "Really really sure? My heart is fragile 💔",
+      "Last chance... are you absolutely sure? 😭",
+      "Okay this is getting serious… are you sure? 😔"
+    ];
+
+    function sayNo() {
+      const q = document.getElementById("question");
+      q.textContent = questions[step % questions.length];
+      step++;
+      spawnHearts(6);
+    }
+
+    function sayYes() {
+      const card = document.getElementById("card");
+      card.innerHTML = `
+        <h1>YAYYYYY!!! 💘</h1>
+        <p style="font-size:1.1rem; opacity:0.9;">You just made my whole world brighter ✨</p>
+        <p style="font-size:1.4rem; color:#ff4d6d; font-weight:700;">
+          loveee you soooo much soni byti
+        </p>
+        <p style="margin-top:10px;">❤️ ❤️ ❤️</p>
+      `;
+      spawnHearts(30);
+      const bgm = document.getElementById("bgm");
+      bgm.play().catch(()=>{});
+    }
+
+    // Floating hearts
+    function spawnHearts(count = 8) {
+      for (let i = 0; i < count; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.textContent = "❤";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.fontSize = (12 + Math.random() * 24) + "px";
+        h.style.animationDuration = (4 + Math.random() * 4) + "s";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 7000);
+      }
+    }
+
+    // Start music on first user interaction (browser autoplay rules)
+    document.addEventListener("click", () => {
+      const bgm = document.getElementById("bgm");
+      if (bgm.paused) bgm.play().catch(()=>{});
+    }, { once: true });
+  </script>
+</body>
+</html>
